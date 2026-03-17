@@ -359,13 +359,8 @@
 	// Dentro de tu función de onPlayerReady o al cargar la página
 	window.addEventListener('load', () => {
 		setTimeout(() => {
-			// Si el player ya existe, le quitamos el mute o le damos play
-			if (player && typeof player.unMute === 'function') {
-				player.unMute();
-				player.setVolume(30); // Empezamos bajito para la intro
-				player.playVideo();
-			}
-		}, 1000); // Sincronizado con la aparición del anillo
+			document.getElementById('intro-container').remove();
+		}, 5000); // Sincronizado con la aparición del anillo
 	});
 </script>
  
