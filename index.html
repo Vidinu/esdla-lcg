@@ -10,6 +10,9 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+
     <style>
         :root {
             --light-green: #cecfba;
@@ -47,9 +50,10 @@
             max-width: 600px;
             /* height: 450px; */
             background: var(--dark-green);
+			background-image: url('./images/green-texture.webp');
             border: 6px solid var(--color-brown);
 			outline: 4px solid var(--old-gold);
-            border-radius: 15px;
+            border-radius: 12px;
             box-shadow: 0 0 0 8px var(--color-brown),0 0 30px 10px rgba(0,0,0,0.7);
             display: flex;
             flex-direction: column;
@@ -75,11 +79,11 @@
         .phase-number {
 			font-family: 'Uncial Antiqua', cursive;
             color: var(--green);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: bold;
-            /* text-transform: uppercase; */
             letter-spacing: 2px;
 			text-align: center;
+			text-shadow: -1px -1px 0 var(--color-brown),  1px -1px 0 var(--color-brown),-1px  1px 0 var(--color-brown),1px  1px 0 var(--color-brown);
         }
 
         .phase-title {
@@ -92,6 +96,7 @@
             border-bottom: 1px solid var(--old-gold);
             padding-bottom: 10px;
 			letter-spacing: 3px;
+  			text-shadow: -1px -1px 0 var(--color-brown),  1px -1px 0 var(--color-brown),-1px  1px 0 var(--color-brown),1px  1px 0 var(--color-brown);
         }
 
         .phase-content {
@@ -104,6 +109,7 @@
 			border: 2px solid var(--dark-green);
 			letter-spacing: 0.5px;
         }
+
 
 		.buttons-container {
 			display: flex;
@@ -138,6 +144,7 @@
             bottom: 10px;
             width: 100%;
             text-align: center;
+			cursor: pointer;
         }
 
         .dot {
@@ -167,11 +174,202 @@
 			border-radius: 8px;
 			margin-bottom: 8px;
 		}
+		.ventana::before{
+			font-family: Phosphor;
+			content: "\E6B6 ";
+			position: relative;
+			top: 2px;
+			margin-right: 8px;
+			display: inline-block;
+		}
+		.repetir{
+			list-style: none;
+			text-align: center;
+			background-color: var(--brown);
+			color: var(--light-gold);
+			margin: 0 16px;
+			border-radius: 8px;
+			margin-bottom: 8px;
+		}
+		.repetir::before{
+			font-family: Phosphor;
+			content: "\E036";
+			position: relative;
+			top: 2px;
+			margin-right: 8px;
+			display: inline-block;
+		}
+
+        .controls {
+			width: 100%;
+			padding: 4px 0;
+            position: fixed;
+			height: 50px;
+			bottom: 0;
+			left: 0;
+            z-index: 100;
+            display: flex;
+			justify-content: center;
+			align-items: center;
+            gap: 10px;
+			background-color: #472919ee;
+			border-top: 1px solid var(--old-gold);
+			box-shadow: 0 0 30px 0px rgba(0,0,0,0.5)
+        }
+
+		
+		@media (max-width: 768px){
+			.game-slider{
+				border: 2px solid var(--color-brown);
+				outline: 2px solid var(--old-gold);
+				box-shadow: 0 0 0 4px var(--color-brown),0 0 30px 10px rgba(0,0,0,0.7);
+			}
+			.phase-number{
+				font-size: 1.2rem;
+			}
+			.phase-title{
+				font-size: 1.5rem;
+			}
+			.phase-content {
+				font-size: 1rem;
+            	line-height: 1.2;
+				    padding: 12px 8px;
+			}
+			.phase-card {
+				padding: 20px 8px;
+			}
+			.dots {
+				bottom: 0;
+			}
+
+			.dot {
+				height: 8px;
+				width: 8px;
+				margin: 0 5px;
+			}
+			.dot.active {
+				transform: scale(1.2);
+			}
+			.controls div{
+    			min-width: 60%;
+    			max-width: 60%;
+			}
+			.buttons-container{
+				display: none;
+			}
+
+		}
+		/* Contenedor principal sin cambios */
+		#intro-container {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			z-index: 9999;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: black;
+			pointer-events: none;
+			animation: fadeContainer 1s forwards;
+			animation-delay: 4.2s; /* Un poco más de tiempo para el blur suave */
+		}
+
+		/* La sombra que se disipa (sin cambios) */
+		#shadow-overlay {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background: black;
+			clip-path: circle(0% at 50% 50%);
+			animation: dissipateShadow 2.8s forwards ease-in-out; /* Un pelín más lenta */
+			animation-delay: 1.8s;
+		}
+
+		/* El Anillo Único - ¡AQUÍ ESTÁN LOS CAMBIOS! */
+		#the-ring {
+			font-size: 100px; /* Un poco más grande para impactar */
+			z-index: 10000;
+			opacity: 0;
+			transform: scale(0.6) rotate(-15deg);
+			
+			/* El Truco del Resplandor Doble para Fondo Negro */
+			/* 1. Un brillo nítido dorado. 2. Un resplandor difuso rojo-fuego detrás. */
+			filter: drop-shadow(0 0 5px gold) drop-shadow(0 0 30px #ff4500);
+			
+			animation: ringEpiphany 4s forwards ease-out;
+			transition: filter 0.5s ease-out; /* Para que cualquier cambio de filtro sea suave */
+		}
+		#the-ring img{
+			max-width: 200px;
+		}
+
+		/* --- ANIMACIONES REESCRITAS --- */
+
+		@keyframes ringEpiphany {
+			0% { 
+				opacity: 0; 
+				transform: scale(0.6) rotate(-15deg); 
+				filter: drop-shadow(0 0 5px gold) drop-shadow(0 0 30px #ff4500) blur(0px); /* Nítido */
+			}
+			30% { 
+				opacity: 1; 
+				transform: scale(1.1) rotate(0deg); 
+				filter: drop-shadow(0 0 10px gold) drop-shadow(0 0 60px #ff4500) blur(0px); /* Máximo brillo nítido */
+			}
+			60% { 
+				opacity: 1; 
+				transform: scale(1); 
+				filter: drop-shadow(0 0 5px gold) drop-shadow(0 0 40px #ff4500) blur(2px); /* Empieza el desenfoque */
+			}
+			85% {
+				opacity: 0.5; /* Se empieza a desvanecer */
+				transform: scale(1.3); /* Crece suavemente */
+				filter: drop-shadow(0 0 2px gold) drop-shadow(0 0 20px #ff4500) blur(10px); /* Blur muy notable */
+			}
+			100% { 
+				opacity: 0; 
+				transform: scale(1.8); /* Se expande mucho */
+				filter: drop-shadow(0 0 0px gold) drop-shadow(0 0 0px #ff4500) blur(20px); /* Desaparece en pura niebla */
+			}
+		}
+
+		/* Las otras animaciones siguen igual */
+		@keyframes dissipateShadow {
+			0% { clip-path: circle(0% at 50% 50%); }
+			100% { clip-path: circle(150% at 50% 50%); }
+		}
+
+		@keyframes fadeContainer {
+			to { visibility: hidden; opacity: 0; }
+		}
+
     </style>
 </head>
 <body>
 
-    <div class="game-slider">
+<div id="intro-container">
+    <div id="shadow-overlay"></div>
+    <div id="the-ring"><img src="./images/big-ring.webp"></div>
+</div>
+
+<script>
+	// Dentro de tu función de onPlayerReady o al cargar la página
+	window.addEventListener('load', () => {
+		setTimeout(() => {
+			// Si el player ya existe, le quitamos el mute o le damos play
+			if (player && typeof player.unMute === 'function') {
+				player.unMute();
+				player.setVolume(30); // Empezamos bajito para la intro
+				player.playVideo();
+			}
+		}, 1000); // Sincronizado con la aparición del anillo
+	});
+</script>
+ 
+
+    <div class="game-slider" id="game-slider">
 
         <div class="slides-container" id="slider">
 
@@ -241,7 +439,7 @@
 					<ol>
 						<li>Los jugadores pueden elegir enfrentarse a un enemigo cada uno.</li>
 					</ol>
-						<div class="ventana">Ventana de acción</div>
+					<div class="ventana">Ventana de acción</div>
 					<ol>
 						<li value="2"><strong>Se comprueba si cada enemigo se enfrenta a jugadores:</strong>
 							Empezando por el jugador inicial, cada enemigo con &lt;= valor de encuentro que su se enfrenta a el.
@@ -254,10 +452,42 @@
             </div>
 
             <div class="phase-card">
-                <div class="phase-number">Fase 6</div>
+                <div class="phase-number">Fase 6A</div>
                 <h2 class="phase-title">Combate</h2>
                 <div class="phase-content">
-					Se resuelven los ataques de los enemigos (repartiendo cartas de sombra) y después los jugadores declaran sus ataques contra los enemigos enfrentados.
+					<ol>
+						<li><strong>Colocamos sombras</strong> en los enemigos.</li>
+					</ol>
+					<div class="ventana">Ventana de acción</div>
+					<ol>
+						<li value="2">Declaramos <strong>defensores</strong>.</li>
+					</ol>
+					<div class="ventana">Ventana de acción</div>
+					<ol>
+						<li value="3">Resolvemos <strong>sombras</strong> y determinamos daño</li>
+					</ol>
+					<div class="ventana">Ventana de acción</div>
+					<div class="repetir">Lo repite cada jugador en orden</div>
+				</div>
+            </div>
+
+            <div class="phase-card">
+                <div class="phase-number">Fase 6B</div>
+                <h2 class="phase-title">Combate</h2>
+                <div class="phase-content">
+					<ol>
+						<li>Se declaran los <strong>objetivos y atacantes</strong></li>
+					</ol>
+					<div class="ventana">Ventana de acción</div>
+					<ol>
+						<li value="2">Determinamos la fuerza del ataque.</li>
+					</ol>
+					<div class="ventana">Ventana de acción</div>
+					<ol>
+						<li value="3">Determinamos el daño.</li>
+					</ol>
+					<div class="ventana">Ventana de acción</div>
+					<div class="repetir">Lo repite cada jugador en orden</div>
 				</div>
             </div>
 
@@ -265,7 +495,12 @@
                 <div class="phase-number">Fase 7</div>
                 <h2 class="phase-title">Recuperación</h2>
                 <div class="phase-content">
-					Se preparan todas las cartas agotadas, se aumenta el nivel de amenaza de cada jugador en 1 y el marcador de jugador inicial pasa al siguiente.
+					<div><strong>Cada jugador:</strong></div>
+					<ol>
+						<li>Prepara las cartas agotadas.</li>
+						<li>Aumenta su amenaza en 1.</li>
+						<li>Ficha al siguiente jugador a la izquierda</li>
+					</ol>
 				</div>
             </div>
 
@@ -323,122 +558,182 @@
             if (e.key === "ArrowRight") moveSlide(1);
             if (e.key === "ArrowLeft") moveSlide(-1);
         });
+
+		let touchStartX = 0;
+		let touchEndX = 0;
+
+		const gameSlider = document.getElementById('game-slider'); // El contenedor principal
+
+		gameSlider.addEventListener('touchstart', e => {
+			touchStartX = e.changedTouches[0].screenX;
+		}, { passive: true });
+
+		gameSlider.addEventListener('touchend', e => {
+			touchEndX = e.changedTouches[0].screenX;
+			handleGesture();
+		}, { passive: true });
+
+		function handleGesture() {
+			const swipedistance = touchEndX - touchStartX;
+			const threshold = 50; // Distancia mínima en píxeles para que cuente como swipe
+
+			if (swipedistance < -threshold) {
+				// Desliza a la izquierda -> Siguiente slide
+				moveSlide(1);
+			} 
+			if (swipedistance > threshold) {
+				// Desliza a la derecha -> Anterior slide
+				moveSlide(-1);
+			}
+		}
+
     </script>
 
 
 <!-- YOTUUBE -->
 
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-
-        /* Contenedor del video de fondo */
-        .video-background {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            pointer-events: none; /* Para que no interfiera con los clics en la web */
-        }
-
-        /* Hacer que el iframe cubra toda la pantalla (efecto cover) */
-        .video-background iframe {
-            width: 100vw;
-            height: 56.25vw; /* Ratio 16:9 */
-            min-height: 100vh;
-            min-width: 177.77vh; /* Ratio 16:9 */
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-        }
 
         /* Botón flotante */
         .controls {
+			width: 100%;
+			padding: 4px 0;
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+			height: 50px;
+			bottom: 0;
+			left: 0;
             z-index: 100;
             display: flex;
+			justify-content: center;
+			align-items: center;
             gap: 10px;
+			background-color: #472919ee;
+			border-top: 1px solid var(--old-gold);
+			box-shadow: 0 0 30px 0px rgba(0,0,0,0.5)
         }
 
         .btn-float {
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            border: 2px solid #d4af37;
-            padding: 10px 15px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-family: sans-serif;
-            transition: 0.3s;
+            border: 0;
+			background-color: var(--old-gold);
+			border-radius: 50%;
+			width: 36px;
+			height: 36px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+			color: var(--color-brown);
+			font-size: 20px;
         }
 
         .btn-float:hover { background: #d4af37; color: black; }
     </style>
 
 
-    <div class="video-background">
+    <div style="display: none;">
         <div id="player"></div>
     </div>
 
-    <h1 style="color: white; text-align: center; margin-top: 20%;">Mi Web con Video de Fondo</h1>
+	<div class="controls">
+		<button class="btn-float" onclick="togglePlay()" id="playBtn"><i class="ph-fill ph-play"></i></button>
+		<!-- <button class="btn-float" onclick="toggleMute()" id="muteBtn"><i class="ph ph-speaker-simple-high"></i></button> -->
+		<button class="btn-float" onclick="nextVideo()"><i class="ph-fill ph-skip-forward"></i></button>
 
-    <div class="controls">
-        <button class="btn-float" onclick="togglePlay()" id="playBtn">Pausar</button>
-        <button class="btn-float" onclick="toggleMute()" id="muteBtn">Sonido: OFF</button>
-    </div>
+		<div id="current-track-title" style="color: #d4af37; letter-spacing: 1px; margin-left: 8px;">
+			Música actual: -
+		</div>
+
+	</div>
 
     <script>
-        // 1. Cargar la API de YouTube de forma asíncrona
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        var player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                videoId: 'OmDPKojNNrg', // <--- CAMBIA ESTO por el ID de tu video
-                playerVars: {
-                    'autoplay': 1,
-                    'controls': 0,
-                    'rel': 0,
-                    'showinfo': 0,
-                    'mute': 1,      // Obligatorio para autoplay
-                    'loop': 1,
-                    'playlist': 'OmDPKojNNrg', // Necesario para que el loop funcione
-					'origin': window.location.origin,
-                },
-                events: {
-                    'onReady': onPlayerReady
-                }
-            });
-        }
+		const playlist = [
+			{ id: 'OmDPKojNNrg', titulo: 'Rohan' },
+			{ id: 'xaByDKrtpns', titulo: 'Rivendell' },
+			{ id: 'EkXqern9XrE', titulo: 'Edoras' },
+			{ id: 'mOXsM99SB8w', titulo: 'La Montaña Solitaria' },
+			{ id: 'w6kQww1YEYU', titulo: 'Aragorn & Arwen' },
+			{ id: 'HFlxEM6zZsc', titulo: 'La Comarca' },
+			{ id: 'ZlANh75y0Y', titulo: 'Bree' },
+			{ id: 'fvczKM6D6ZU', titulo: 'Lothlorien' },
+		];
 
-        function onPlayerReady(event) {
-            event.target.playVideo();
-        }
+		let currentVideoIndex = Math.floor(Math.random() * playlist.length);
+		let player;
 
-        // Funciones de los botones
-        function togglePlay() {
-            var state = player.getPlayerState();
-            if (state == YT.PlayerState.PLAYING) {
-                player.pauseVideo();
-                document.getElementById('playBtn').innerText = "Reproducir";
-            } else {
-                player.playVideo();
-                document.getElementById('playBtn').innerText = "Pausar";
-            }
-        }
+		// 2. Cargar API
+		var tag = document.createElement('script');
+		tag.src = "https://www.youtube.com/iframe_api";
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        function toggleMute() {
-            if (player.isMuted()) {
-                player.unMute();
-                document.getElementById('muteBtn').innerText = "Sonido: ON";
-            } else {
-                player.mute();
-                document.getElementById('muteBtn').innerText = "Sonido: OFF";
-            }
-        }
+		function onYouTubeIframeAPIReady() {
+			player = new YT.Player('player', {
+				videoId: playlist[currentVideoIndex].id,
+				playerVars: {
+					'autoplay': 0,
+					'controls': 0,
+					'rel': 0,
+					'mute': 0,
+					'enablejsapi': 1,
+					'origin': window.location.origin
+				},
+				events: {
+					'onReady': onPlayerReady,
+					'onStateChange': onPlayerStateChange // Para que salte al siguiente al acabar
+				}
+			});
+		}
+
+		function onPlayerReady(event) {
+			event.target.playVideo();
+			document.getElementById('current-track-title').innerText = 'Música actual: ' + playlist[currentVideoIndex].titulo;
+		}
+
+		// 3. Lógica para cambiar de video
+		function nextVideo() {
+
+			currentVideoIndex++;
+			
+			if (currentVideoIndex >= playlist.length) { currentVideoIndex = 0; }
+
+			// Cargar el nuevo video
+			player.loadVideoById(playlist[currentVideoIndex].id);
+
+			document.getElementById('current-track-title').innerText = 'Música actual: ' + playlist[currentVideoIndex].titulo;
+			
+			// Actualizar texto del botón de pausa por si estaba en "Reproducir"
+			document.getElementById('playBtn').innerHTML = '<i class="ph-fill ph-pause"></i>';
+		}
+
+		// 4. (Opcional) Saltar automáticamente al siguiente cuando termine el actual
+		function onPlayerStateChange(event) {
+			if (event.data == YT.PlayerState.ENDED) {
+				nextVideo();
+			}
+		}
+
+		// Funciones de control existentes
+		function togglePlay() {
+			var state = player.getPlayerState();
+			if (state == YT.PlayerState.PLAYING) {
+				player.pauseVideo();
+				document.getElementById('playBtn').innerHTML = '<i class="ph-fill ph-play"></i>';
+			} else {
+				player.playVideo();
+				document.getElementById('playBtn').innerHTML = '<i class="ph-fill ph-pause"></i>';
+			}
+		}
+
+		function toggleMute() {
+			if (player.isMuted()) {
+				player.unMute();
+				document.getElementById('muteBtn').innerHTML = '<i class="ph-fill ph-speaker-simple-slash"></i>';
+			} else {
+				player.mute();
+				document.getElementById('muteBtn').innerHTML = '<i class="ph-fill ph-speaker-simple-high"></i>';
+			}
+		}
     </script>
 </body>
 </html>
