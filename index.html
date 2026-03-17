@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fases de El Señor de los Anillos LCG</title>
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --light-green: #cecfba;
+            --green: #b7b99e;
+            --dark-green: #4b4d34;
+            --light-brown: #927d5e;
+            --brown: #6c573c;
+            --color-brown: #472919;
+            --deep-blue: #232a28;
+			--light-gold: #d6c58b;
+            --old-gold: #c5a849;
+        }
+
+        body {
+            font-family: 'lato', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            background-color: #0d131a;
+			background-image: url('https://images3.alphacoders.com/133/1337297.jpeg');
+            color: var(--color-brown);
+            margin: 0;
+            display: flex;
+			flex-direction: column;
+			gap: 16px;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Contenedor Principal */
+        .game-slider {
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+            /* height: 450px; */
+            background: var(--dark-green);
+            border: 6px solid var(--color-brown);
+			outline: 4px solid var(--old-gold);
+            border-radius: 15px;
+            box-shadow: 0 0 0 8px var(--color-brown),0 0 30px 10px rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Contenedor de las Fases */
+        .slides-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+
+        .phase-card {
+            min-width: 100%;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .phase-number {
+			font-family: 'Uncial Antiqua', cursive;
+            color: var(--green);
+            font-size: 1.2rem;
+            font-weight: bold;
+            /* text-transform: uppercase; */
+            letter-spacing: 2px;
+			text-align: center;
+        }
+
+        .phase-title {
+			text-align: center;
+			font-family: 'Uncial Antiqua', cursive;
+            font-size: 2.5rem;
+            color: var(--light-green);
+            margin-top: 0px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--green);
+            padding-bottom: 10px;
+			letter-spacing: 3px;
+        }
+
+        .phase-content {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: var(--color-brown);
+			background-color: var(--light-gold);
+			padding: 24px;
+			border-radius: 8px;
+			border: 2px solid var(--dark-green);
+			letter-spacing: 0.5px;
+        }
+
+		.buttons-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 16px;
+		}
+
+        .nav-btn {
+			background: var(--light-gold);
+			color: var(--brown);
+			border: 1px solid var(--color-brown);
+			font-size: 2rem;
+			cursor: pointer;
+			border-radius: 50%;
+			transition: 0.2s;
+			height: 50px;
+			width: 50px;
+			box-shadow: 0 0 10px 2px rgba(0,0,0,0.7);
+        }
+
+        .nav-btn:hover {
+			color: var(--color-brown);
+        }
+
+        .prev { left: 10px; }
+        .next { right: 10px; }
+
+        /* Indicador de posición */
+        .dots {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .dot {
+            height: 10px;
+            width: 10px;
+            margin: 0 5px;
+            background-color: var(--green);
+            border-radius: 50%;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background-color: var(--old-gold);
+            transform: scale(1.5);
+        }
+		ol{
+			margin: 0;
+    		margin-bottom: 8px;
+		}
+		.ventana{
+			list-style: none;
+			text-align: center;
+			background-color: #9b564b;
+			color: var(--light-gold);
+			margin: 0 16px;
+			border-radius: 8px;
+			margin-bottom: 8px;
+		}
+    </style>
+</head>
+<body>
+
+    <div class="game-slider">
+
+        <div class="slides-container" id="slider">
+
+            <div class="phase-card">
+                <div class="phase-number">Fase 1</div>
+                <h2 class="phase-title">Recursos</h2>
+                <div class="phase-content">
+					<ol>
+						<li><strong>Cada héroe añade 1 recurso</strong> a su reserva.</li>
+						<li>Cada jugador <strong>roba una carta</strong>.</li>
+					</ol>
+					<div class="ventana">Ventana de acción</div>
+				</div>
+            </div>
+
+            <div class="phase-card">
+                <div class="phase-number">Fase 2</div>
+                <h2 class="phase-title">Planificación</h2>
+                <div class="phase-content">
+					<ol>
+						<li>El jugador inicial <strong>juega Aliados y Vinculadas</strong></li>
+						<li>Luego el segundo jugador, tercero...</li>
+					</ol>
+					<div class="ventana">Ventana de acción</div>
+				</div>
+            </div>
+
+            <div class="phase-card">
+                <div class="phase-number">Fase 3</div>
+                <h2 class="phase-title">Misión</h2>
+                <div class="phase-content">
+					<ol>
+						<li>Los jugadores <strong>asignan personajes a la misión</strong>.</li>
+						<li>Preparación: <strong>Revela 1 Encuentro por jugador</strong>.</li>
+					</ol>
+					<div class="ventana">Ventana de acción</div>
+					<ol>
+						<li value="3">
+							<strong>Resolución de la misión.</strong><br>
+							Comparamos la <strong>voluntad</strong> de los personajes asignados con la <strong>amenaza</strong> enemiga:<br>
+							+ añade progreso al lugar o la misión.<br>
+							- añade amenaza al dial de cada jugador.<br>
+						</li>
+					</ol>
+					<div class="ventana">Ventana de acción</div>
+				</div>
+            </div>
+			 
+            <div class="phase-card">
+                <div class="phase-number">Fase 4</div>
+                <h2 class="phase-title">Viaje</h2>
+                <div class="phase-content">
+					<ol>
+						<li>
+							Los jugadores pueden decidir <strong>viajar a un Lugar que esté en el área de preparación</strong> para convertirla en el Lugar Activo.
+						</li>
+					</ol>
+					<div class="ventana">Ventana de acción</div>
+				</div>
+				
+            </div>
+
+            <div class="phase-card">
+                <div class="phase-number">Fase 5</div>
+                <h2 class="phase-title">Encuentro</h2>
+                <div class="phase-content">
+					<ol>
+						<li>Los jugadores pueden elegir enfrentarse a un enemigo cada uno.</li>
+					</ol>
+						<div class="ventana">Ventana de acción</div>
+					<ol>
+						<li value="2"><strong>Se comprueba si cada enemigo se enfrenta a jugadores:</strong>
+							Empezando por el jugador inicial, cada enemigo con &lt;= valor de encuentro que su se enfrenta a el.
+						</li>
+						<li><strong>Se comprueba si cada enemigo se enfrenta a jugadores:</strong>
+							Comprobamos <strong>efectos de enfrentamiento</strong>
+						</li>
+					</ol>
+				</div>
+            </div>
+
+            <div class="phase-card">
+                <div class="phase-number">Fase 6</div>
+                <h2 class="phase-title">Combate</h2>
+                <div class="phase-content">
+					Se resuelven los ataques de los enemigos (repartiendo cartas de sombra) y después los jugadores declaran sus ataques contra los enemigos enfrentados.
+				</div>
+            </div>
+
+            <div class="phase-card">
+                <div class="phase-number">Fase 7</div>
+                <h2 class="phase-title">Recuperación</h2>
+                <div class="phase-content">
+					Se preparan todas las cartas agotadas, se aumenta el nivel de amenaza de cada jugador en 1 y el marcador de jugador inicial pasa al siguiente.
+				</div>
+            </div>
+
+        </div>
+
+        <div class="dots" id="dotsContainer"></div>
+    </div>
+	<div class="buttons-container">
+        <button class="nav-btn prev" onclick="moveSlide(-1)">
+			<span style="position: relative; top:-2px; left: -1px;">&#10094;</span>
+		</button>
+        <button class="nav-btn next" onclick="moveSlide(1)">
+			<span style="position: relative; top:-2px; right: -1px;">&#10095;</span>
+		</button>
+	</div>
+
+    <script>
+        let currentSlide = 0;
+        const slider = document.getElementById('slider');
+        const slides = document.querySelectorAll('.phase-card');
+        const dotsContainer = document.getElementById('dotsContainer');
+
+        // Crear puntos indicadores
+        slides.forEach((_, i) => {
+            const dot = document.createElement('span');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        function updateSlider() {
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function moveSlide(step) {
+            currentSlide += step;
+            if (currentSlide >= slides.length) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = slides.length - 1;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Soporte para flechas del teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "ArrowRight") moveSlide(1);
+            if (e.key === "ArrowLeft") moveSlide(-1);
+        });
+    </script>
+</body>
+</html>
