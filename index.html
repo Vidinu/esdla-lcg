@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fases de El Señor de los Anillos LCG</title>
+    <title>El Señor de los Anillos LCG</title>
 
+	<link rel="icon" type="image/png" href="./images/ico-32x32.png">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet">
@@ -85,10 +86,10 @@
 			text-align: center;
 			font-family: 'Uncial Antiqua', cursive;
             font-size: 2.5rem;
-            color: var(--light-green);
+            color: var(--old-gold);
             margin-top: 0px;
             margin-bottom: 20px;
-            border-bottom: 1px solid var(--green);
+            border-bottom: 1px solid var(--old-gold);
             padding-bottom: 10px;
 			letter-spacing: 3px;
         }
@@ -245,8 +246,8 @@
 						<li value="2"><strong>Se comprueba si cada enemigo se enfrenta a jugadores:</strong>
 							Empezando por el jugador inicial, cada enemigo con &lt;= valor de encuentro que su se enfrenta a el.
 						</li>
-						<li><strong>Se comprueba si cada enemigo se enfrenta a jugadores:</strong>
-							Comprobamos <strong>efectos de enfrentamiento</strong>
+						<li><
+							Comprobamos <strong>efectos de enfrentamiento<strong></strong></strong>
 						</li>
 					</ol>
 				</div>
@@ -323,5 +324,126 @@
             if (e.key === "ArrowLeft") moveSlide(-1);
         });
     </script>
+
+
+<!-- YOTUUBE -->
+
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+
+        /* Contenedor del video de fondo */
+        .video-background {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none; /* Para que no interfiera con los clics en la web */
+        }
+
+        /* Hacer que el iframe cubra toda la pantalla (efecto cover) */
+        .video-background iframe {
+            width: 100vw;
+            height: 56.25vw; /* Ratio 16:9 */
+            min-height: 100vh;
+            min-width: 177.77vh; /* Ratio 16:9 */
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Botón flotante */
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-float {
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: 2px solid #d4af37;
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: sans-serif;
+            transition: 0.3s;
+        }
+
+        .btn-float:hover { background: #d4af37; color: black; }
+    </style>
+
+
+    <div class="video-background">
+        <div id="player"></div>
+    </div>
+
+    <h1 style="color: white; text-align: center; margin-top: 20%;">Mi Web con Video de Fondo</h1>
+
+    <div class="controls">
+        <button class="btn-float" onclick="togglePlay()" id="playBtn">Pausar</button>
+        <button class="btn-float" onclick="toggleMute()" id="muteBtn">Sonido: OFF</button>
+    </div>
+
+    <script>
+        // 1. Cargar la API de YouTube de forma asíncrona
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                videoId: 'OmDPKojNNrg', // <--- CAMBIA ESTO por el ID de tu video
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 0,
+                    'rel': 0,
+                    'showinfo': 0,
+                    'mute': 1,      // Obligatorio para autoplay
+                    'loop': 1,
+                    'playlist': 'OmDPKojNNrg', // Necesario para que el loop funcione
+					'origin': window.location.origin,
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        // Funciones de los botones
+        function togglePlay() {
+            var state = player.getPlayerState();
+            if (state == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+                document.getElementById('playBtn').innerText = "Reproducir";
+            } else {
+                player.playVideo();
+                document.getElementById('playBtn').innerText = "Pausar";
+            }
+        }
+
+        function toggleMute() {
+            if (player.isMuted()) {
+                player.unMute();
+                document.getElementById('muteBtn').innerText = "Sonido: ON";
+            } else {
+                player.mute();
+                document.getElementById('muteBtn').innerText = "Sonido: OFF";
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
 </body>
 </html>
