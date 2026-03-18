@@ -2,7 +2,19 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; 
+               script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.youtube.com https://*.youtube-nocookie.com https://*.google.com https://*.gstatic.com https://*.doubleclick.net https://*.googleadservices.com data:; 
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; 
+               font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net data:; 
+               img-src 'self' data: https://*.ytimg.com https://*.alphacoders.com https://*.doubleclick.net; 
+               child-src https://*.youtube.com https://*.youtube-nocookie.com;
+               frame-src https://*.youtube.com https://*.youtube-nocookie.com;
+               connect-src 'self' https://*.youtube.com https://*.google.com https://*.doubleclick.net;">
+
     <title>El Señor de los Anillos LCG</title>
 
 	<link rel="icon" type="image/png" href="./images/ico-32x32.png">
@@ -34,21 +46,27 @@
 			background-image: url('https://images3.alphacoders.com/133/1337297.jpeg');
             color: var(--color-brown);
             margin: 0;
+            overflow: hidden;
+        }
+		button:active, button:focus{
+			cursor: pointer;
+			outline: none;
+		}
+
+		.main-box{
             display: flex;
 			flex-direction: column;
 			gap: 16px;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
-        }
+		}
 
         /* Contenedor Principal */
         .game-slider {
             position: relative;
             width: 90%;
             max-width: 600px;
-            /* height: 450px; */
             background: var(--dark-green);
 			background-image: url('./images/green-texture.webp');
             border: 6px solid var(--color-brown);
@@ -113,9 +131,12 @@
 
 		.buttons-container {
 			display: flex;
-			justify-content: center;
+			justify-content: space-between;
 			align-items: center;
-			gap: 16px;
+			max-width: 750px;
+			width: 100%;
+			position: absolute;
+			top: 48%;
 		}
 
         .nav-btn {
@@ -128,7 +149,7 @@
 			transition: 0.2s;
 			height: 50px;
 			width: 50px;
-			box-shadow: 0 0 10px 2px rgba(0,0,0,0.7);
+			box-shadow: 0 0 20px 2px rgba(0,0,0,0.7);
         }
 
         .nav-btn:hover {
@@ -165,6 +186,25 @@
 			margin: 0;
     		margin-bottom: 8px;
 		}
+		.btn-start-game{
+			list-style: none;
+			text-align: center;
+			background-color: var(--color-brown);
+			color: var(--light-gold);
+			margin: 0 16px;
+			border-radius: 8px;
+			margin-bottom: 8px;
+			padding: 12px 8px;
+			cursor: pointer;
+		}
+		.btn-start-game::before{
+			font-family: Phosphor;
+			content: "\E1C6";
+			position: relative;
+			top: 2px;
+			margin-right: 8px;
+			display: inline-block;
+		}
 		.ventana{
 			list-style: none;
 			text-align: center;
@@ -176,7 +216,7 @@
 		}
 		.ventana::before{
 			font-family: Phosphor;
-			content: "\E6B6 ";
+			content: "\E6A4";
 			position: relative;
 			top: 2px;
 			margin-right: 8px;
@@ -365,7 +405,40 @@
 </script>
  
 
-    <div class="game-slider" id="game-slider">
+<div class="main-box">
+
+	<div class="game-slider" id="game-preparation">
+
+		<div class="slides-container" >
+
+			<div class="phase-card">
+				<!-- <div class="phase-number">Fase 1</div> -->
+				<h2 class="phase-title">Preparación</h2>
+				<div class="phase-content">
+					<ol>
+						<li>Seguimos las <strong>instrucciones de la 1ª carta de misión</strong>.</li>
+						<li>Cada jugador <strong>coloca sus 3 héroes</strong>.</li>
+						<li>Cada jugador <strong>establece su amenaza</strong> según el nivel de sus 3 héroes.</li>
+						<li>Cada jugador <strong>roba 6 cartas</strong>.</li>
+						<ul>
+							<li><u>Opcionalmente</u>: Si no le gustan sus cartas, puede descartar todas y coger otras 6 (solo una vez).</li>
+						</ul>
+					</ol>
+					<div class="btn-start-game" onclick="startGame();">Empezar partida</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function startGame(){
+			document.getElementById('game-preparation').remove();
+			document.getElementById('game-rules').style.display = '';
+			document.querySelector('.buttons-container').style.display = '';
+		}
+	</script>
+
+    <div class="game-slider" id="game-rules" style="display: none;">
 
         <div class="slides-container" id="slider">
 
@@ -440,7 +513,7 @@
 						<li value="2"><strong>Se comprueba si cada enemigo se enfrenta a jugadores:</strong>
 							Empezando por el jugador inicial, cada enemigo con &lt;= valor de encuentro que su se enfrenta a el.
 						</li>
-						<li><
+						<li>
 							Comprobamos <strong>efectos de enfrentamiento<strong></strong></strong>
 						</li>
 					</ol>
@@ -503,9 +576,11 @@
         </div>
 
         <div class="dots" id="dotsContainer"></div>
+
     </div>
-	<div class="buttons-container">
-        <button class="nav-btn prev" onclick="moveSlide(-1)">
+
+	<div class="buttons-container" style="display: none;">
+		<button class="nav-btn prev" onclick="moveSlide(-1)">
 			<span style="position: relative; top:-2px; left: -1px;">&#10094;</span>
 		</button>
         <button class="nav-btn next" onclick="moveSlide(1)">
@@ -513,10 +588,12 @@
 		</button>
 	</div>
 
+</div>
+
     <script>
         let currentSlide = 0;
         const slider = document.getElementById('slider');
-        const slides = document.querySelectorAll('.phase-card');
+        const slides = document.querySelectorAll('#game-rules .phase-card');
         const dotsContainer = document.getElementById('dotsContainer');
 
         // Crear puntos indicadores
@@ -558,7 +635,7 @@
 		let touchStartX = 0;
 		let touchEndX = 0;
 
-		const gameSlider = document.getElementById('game-slider'); // El contenedor principal
+		const gameSlider = document.getElementById('game-rules'); // El contenedor principal
 
 		gameSlider.addEventListener('touchstart', e => {
 			touchStartX = e.changedTouches[0].screenX;
@@ -650,7 +727,8 @@
 			{ id: 'mOXsM99SB8w', titulo: 'La Montaña Solitaria' },
 			{ id: 'w6kQww1YEYU', titulo: 'Aragorn & Arwen' },
 			{ id: 'HFlxEM6zZsc', titulo: 'La Comarca' },
-			{ id: 'ZlANh75y0Y', titulo: 'Bree' },
+			{ id: 'eBKBPoBwBA0', titulo: 'Dol Guldur' },
+			{ id: 'vCB5nrKDfao', titulo: 'Minas Morgul' },
 			{ id: 'fvczKM6D6ZU', titulo: 'Lothlorien' },
 		];
 
