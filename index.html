@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 <meta http-equiv="Content-Security-Policy" 
@@ -593,7 +593,7 @@
     <script>
         let currentSlide = 0;
         const slider = document.getElementById('slider');
-        const slides = document.querySelectorAll('#game-rules .phase-card');
+        const slides = slider.querySelectorAll('.phase-card');
         const dotsContainer = document.getElementById('dotsContainer');
 
         // Crear puntos indicadores
@@ -635,13 +635,11 @@
 		let touchStartX = 0;
 		let touchEndX = 0;
 
-		const gameSlider = document.getElementById('game-rules'); // El contenedor principal
-
-		gameSlider.addEventListener('touchstart', e => {
+		slider.addEventListener('touchstart', e => {
 			touchStartX = e.changedTouches[0].screenX;
 		}, { passive: true });
 
-		gameSlider.addEventListener('touchend', e => {
+		slider.addEventListener('touchend', e => {
 			touchEndX = e.changedTouches[0].screenX;
 			handleGesture();
 		}, { passive: true });
