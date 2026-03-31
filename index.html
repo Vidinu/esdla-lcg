@@ -127,6 +127,13 @@
 			border: 2px solid var(--dark-green);
 			letter-spacing: 0.5px;
         }
+
+		/* Para pantallas con mucho escalado (150% o más, típico de TVs) */
+		@media screen and (min-resolution: 144dpi) {
+			.phase-content {
+				font-size: 1.2rem; 
+			}
+		}
  
 		.buttons-container {
 			display: flex;
